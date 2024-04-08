@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Movie } from "../../reducers/movies";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
 import MovieCard from "./MovieCard";
+import { MovieDetails, client } from "../../api/tmdb";
 
 import styles from "./Movies.module.scss";
+
+export function MoviesFetch() {
+	const [movies, setMovies] = useState<MovieDetails>([]);
+
+	useEffect(() => {
+		async function loadData() {
+			const results = await client.getNowPlaying();
+			setMovies(results);
+		}
+
+		loadData();
+	}, []);
+	console.log(movies);
+	return <Movies movies={movies} />;
+}
 
 interface Props {
 	movies: Movie[];
