@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Movie } from "../../reducers/movies";
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { Movie, moviesLoaded } from "../../reducers/movies";
+import { connect, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import MovieCard from "./MovieCard";
-import { MovieDetails, client } from "../../api/tmdb";
+import { client } from "../../api/tmdb";
 
 import styles from "./Movies.module.scss";
 
-export function MoviesFetch() {
-	const [movies, setMovies] = useState<MovieDetails[]>([]);
+interface Props {
+	movies: Movie[];
+}
+
+function Movies({ movies }: Props) {
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		async function loadData() {
@@ -26,20 +30,11 @@ export function MoviesFetch() {
 					: undefined,
 			}));
 
-			setMovies(mappedResults);
+			dispatch(moviesLoaded(mappedResults));
 		}
 
 		loadData();
-	}, []);
-	console.log(movies);
-	return <Movies movies={movies} />;
-}
-
-interface Props {
-	movies: Movie[];
-}
-
-function Movies({ movies }: Props) {
+	}, [dispatch]);
 	return (
 		<section>
 			<div className={styles.list}>
