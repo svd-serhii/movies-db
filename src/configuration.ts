@@ -1,6 +1,6 @@
-const configuration = {
-	apiUrl: process.env.REACT_APP_API_UR,
+const apiConfiguration = {
+	apiUrl: process.env.REACT_APP_API_URL,
 	apiToken: process.env.REACT_APP_API_TOKEN,
 };
 
-export default configuration;
+export default apiConfiguration;

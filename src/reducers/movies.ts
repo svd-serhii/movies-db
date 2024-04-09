@@ -5,6 +5,7 @@ export interface Movie {
 	title: string;
 	popularity: number;
 	overview: string;
+	image?: string;
 }
 
 interface MovieState {
@@ -26,12 +27,6 @@ const initialState: MovieState = {
 			title: "The Godfather Part II",
 			popularity: 96,
 			overview: "part II...",
-		},
-		{
-			id: 5,
-			title: "The Godfather Part III",
-			popularity: 98,
-			overview: "part III...",
 		},
 	],
 };
